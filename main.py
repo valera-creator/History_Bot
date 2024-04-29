@@ -84,7 +84,7 @@ async def check_text(update, context):
 async def stop(update, context):
     if 'correct' in context.user_data:
         await update.message.reply_text(f"Вы правильно ответили на {context.user_data['correct']} из 10 вопросов.\n"
-                                        f"Всего хорошего) ")
+                                        f"Всего хорошего) ", reply_markup=ReplyKeyboardRemove())
     context.user_data.clear()  # очищаем словарь с пользовательскими данными
     return ConversationHandler.END
 
