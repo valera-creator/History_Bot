@@ -1,5 +1,5 @@
 from telegram.ext import Application, CommandHandler, ConversationHandler, MessageHandler, filters
-from telegram import ReplyKeyboardMarkup
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 import json
 import random
 
@@ -24,7 +24,8 @@ async def start(update, context):
     settings(context, questions_keys)
     cur_question = questions[questions_keys[context.user_data['current_question_num']]]
     await update.message.reply_text(
-        f"Вопрос №{context.user_data['current_question_num'] + 1}\n{cur_question['question']}")
+        f"Вопрос №{context.user_data['current_question_num'] + 1}\n{cur_question['question']}",
+        reply_markup=ReplyKeyboardRemove())
 
 
 async def check_text(update, context):
@@ -35,7 +36,7 @@ async def check_text(update, context):
         settings(context, questions_keys)
         cur_question_data = questions[questions_keys[context.user_data['current_question_num']]]
         await update.message.reply_text(f"Вопрос №{context.user_data['current_question_num'] + 1}\n"
-                                        f"{cur_question_data['question']}")
+                                        f"{cur_question_data['question']}", reply_markup=ReplyKeyboardRemove())
         return
     else:
         if context.user_data['current_question_num'] == 10:  # все вопросы были показаны
@@ -45,12 +46,12 @@ async def check_text(update, context):
                 cur_question_data = questions[questions_keys[context.user_data['current_question_num']]]
                 await update.message.reply_text('Начинаю тест заново')
                 await update.message.reply_text(f"Вопрос №{context.user_data['current_question_num'] + 1}\n"
-                                                f"{cur_question_data['question']}")
+                                                f"{cur_question_data['question']}", reply_markup=ReplyKeyboardRemove())
                 return
 
             elif answer.lower() == "нет":  # завершаем, как в случае /stop
                 context.user_data.clear()  # очищаем словарь с пользовательскими данными
-                await update.message.reply_text('Всего хорошего)')
+                await update.message.reply_text('Всего хорошего)', reply_markup=ReplyKeyboardRemove())
                 return ConversationHandler.END
 
             else:  # пользователь не ответил ни да, ни нет, ничего не делаем
