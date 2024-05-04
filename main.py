@@ -1,6 +1,7 @@
 from telegram.ext import Application, CommandHandler, ConversationHandler, MessageHandler, filters
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 import json
+import logging
 import random
 
 with open('data.json', encoding='utf8') as file:
@@ -9,6 +10,13 @@ with open('data.json', encoding='utf8') as file:
 BOT_TOKEN = '7134752919:AAGCqQM82B3rswT_BgYjxb84hgs3HjkHqFA'
 markup = [['да', 'нет']]
 reply_markup_yes_no = ReplyKeyboardMarkup(markup, one_time_keyboard=True)
+
+logging.basicConfig(filename='example.log')
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG
+)
+
+logger = logging.getLogger(__name__)
 
 
 def settings(context, questions_keys):
