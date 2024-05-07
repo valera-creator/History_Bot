@@ -9,7 +9,7 @@ with open('data.json', encoding='utf8') as file:
 
 BOT_TOKEN = '7134752919:AAGCqQM82B3rswT_BgYjxb84hgs3HjkHqFA'
 markup = [['да', 'нет']]
-reply_markup_yes_no = ReplyKeyboardMarkup(markup, one_time_keyboard=True)
+reply_markup_yes_no = ReplyKeyboardMarkup(markup, one_time_keyboard=True, resize_keyboard=True)
 
 logging.basicConfig(filename='example.log')
 logging.basicConfig(
